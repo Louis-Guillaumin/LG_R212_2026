@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP3 — JavaScript + données</title>
+  <style>
+    /* ================================
+       VARIABLES
+       ================================ */
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-light: #dbeafe;
+      --color-text: #1f2937;
+      --color-text-light: #6b7280;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f3f4f6;
+      --color-border: #e5e7eb;
+      --color-error: #dc2626;
+      --color-success: #059669;
+      --font-base: system-ui, -apple-system, sans-serif;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --radius: 0.5rem;
+    }
+
+    /* ================================
+       BASE
+       ================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg-alt);
+      margin: 0;
+    }
+
+    h1, h2, h3 { line-height: 1.2; }
+
+    /* ================================
+       LAYOUT
+       ================================ */
+    header {
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    header p {
+      margin: var(--space-sm) 0 0;
+      color: var(--color-text-light);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-lg);
+    }
+
+    section {
+      margin-bottom: var(--space-xl);
+    }
+
+    /* ================================
+       FILTRES
+       ================================ */
+    .filtres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .filtre {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 2rem;
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--color-text);
+      font-family: var(--font-base);
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .filtre:hover {
+      border-color: var(--color-primary);
+    }
+
+    .filtre.active {
+      background-color: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    /* ================================
+       GRILLE DE PROJETS
+       ================================ */
+    #projets-liste {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+      min-height: 100px;
+    }
+
+    /* Style des cartes (générées en JS) */
+    .carte {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .carte:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .carte h3 {
+      margin: 0 0 var(--space-sm);
+      font-size: 1.1rem;
+    }
+
+    .carte p {
+      margin: 0 0 var(--space-md);
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      padding: 0.15rem 0.6rem;
+      border-radius: 1rem;
+      font-weight: 500;
+    }
+
+    /* ================================
+       MESSAGES D'ÉTAT
+       ================================ */
+    .loading {
+      text-align: center;
+      color: var(--color-text-light);
+      padding: var(--space-xl);
+      grid-column: 1 / -1;
+    }
+
+    .error {
+      text-align: center;
+      color: var(--color-error);
+      padding: var(--space-xl);
+      grid-column: 1 / -1;
+    }
+
+    .vide {
+      text-align: center;
+      color: var(--color-text-light);
+      padding: var(--space-xl);
+      grid-column: 1 / -1;
+    }
+
+    /* ================================
+       FORMULAIRE D'AJOUT
+       ================================ */
+    #form-ajout {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+    }
+
+    #form-ajout h2 {
+      margin-top: 0;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border);
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      font-family: var(--font-base);
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+
+    .form-group input:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 1px;
+      border-color: var(--color-primary);
+    }
+
+    .form-group small {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--color-text-light);
+      font-size: 0.8rem;
+    }
+
+    #form-ajout button[type="submit"] {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: var(--font-base);
+    }
+
+    #form-ajout button[type="submit"]:hover {
+      opacity: 0.9;
+    }
+
+    /* ================================
+       COMPTEUR
+       ================================ */
+    .compteur {
+      text-align: right;
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* ================================
+       FOOTER
+       ================================ */
+    footer {
+      text-align: center;
+      padding: var(--space-lg);
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+    }
+
+    /* ================================
+       FOCUS VISIBLE
+       ================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ================================
+       RESPONSIVE
+       ================================ */
+    @media (max-width: 600px) {
+      main {
+        padding: var(--space-md);
+      }
+
+      #projets-liste {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================
+       HEADER
+       ================================ -->
+  <header>
+    <h1>Mes projets</h1>
+    <p>Gestion de projets avec JavaScript — filtrage, ajout dynamique et persistance.</p>
+  </header>
+
+  <main>
+
+    <!-- ================================
+         FILTRES
+         ================================ -->
+    <section>
+      <h2>Filtrer par technologie</h2>
+      <div class="filtres">
+        <button class="filtre active" data-tag="tous">Tous</button>
+        <button class="filtre" data-tag="HTML">HTML</button>
+        <button class="filtre" data-tag="CSS">CSS</button>
+        <button class="filtre" data-tag="JS">JS</button>
+        <button class="filtre" data-tag="API">API</button>
+        <button class="filtre" data-tag="Figma">Figma</button>
+      </div>
+      <select id="tri">
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
+
+      <!-- Compteur de résultats -->
+      <p class="compteur" aria-live="polite"></p>
+
+      <!-- Conteneur des cartes (généré en JS) -->
+      <div id="projets-liste">
+        <p class="vide">Chargement des projets...</p>
+      </div>
+    </section>
+
+    <!-- ================================
+         FORMULAIRE D'AJOUT
+         ================================ -->
+    <section>
+      <form id="form-ajout">
+        <h2>Ajouter un projet</h2>
+
+        <div class="form-group">
+          <label for="input-titre">Titre du projet</label>
+          <input type="text" id="input-titre" placeholder="Ex : Mon portfolio" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-desc">Description</label>
+          <input type="text" id="input-desc" placeholder="Ex : Site personnel responsive" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-tags">Technologies</label>
+          <input type="text" id="input-tags" placeholder="Ex : HTML, CSS, JS">
+          <small>Séparez les tags par des virgules</small>
+        </div>
+
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>TP3 R2.12 — Intégration Web — MMI 2026</p>
+  </footer>
+
+  <!-- ================================
+       JAVASCRIPT : à vous de jouer !
+       Créez un fichier script.js et liez-le ici.
+       ================================ -->
+<script src="script.js"></script>
+
+</body>
+</html>
