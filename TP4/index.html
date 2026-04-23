@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP4 — Fetch & API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>TP4 — Données distantes</h1>
+    <p>Charger, attendre, afficher.</p>
+  </header>
+
+  <main>
+
+    <section id="section-projets">
+      <h2>Mes projets</h2>
+      <div id="projets-liste" aria-live="polite">
+        <p>Les projets s'afficheront ici.</p>
+      </div>
+    </section>
+
+    <section id="section-api">
+      <h2>Données depuis REST Countries</h2>
+      <div id="api-liste" aria-live="polite">
+        <p>Les données de l'API s'afficheront ici.</p>
+      </div>
+    </section>
+
+    <section id="section-recherche">
+      <h2>Recherche</h2>
+      <input type="search" id="recherche" placeholder="Chercher un pays...">
+      <div id="recherche-resultats" aria-live="polite">
+        <p>Tapez au moins 2 caractères.</p>
+      </div>
+    </section>
+
+    <section id="section-bonus">
+      <h2>Bonus — Tri, filtre, détail</h2>
+
+      <div id="controles">
+        <button id="tri-pop">Trier par population ↓</button>
+        <button id="tri-nom">Trier par nom A→Z</button>
+        <button id="filtre-grand">Pays > 10M habitants</button>
+        <button id="reinitialiser">Réinitialiser</button>
+      </div>
+
+      <div id="pokemon">
+        <div id="liste-pokemon"></div>
+        <div id="detail-pokemon">
+          <p>Cliquez sur un Pokémon pour voir ses détails.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

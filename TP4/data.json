@@ -1,0 +1,29 @@
+{
+  "projets": [
+    {
+      "id": 1,
+      "titre": "Portfolio",
+      "description": "Mon site personnel responsive.",
+      "tags": ["HTML", "CSS"],
+      "annee": 2025
+    },
+    {
+      "id": 2,
+      "titre": "Blog tech",
+      "description": "Articles sur le développement web.",
+      "tags": ["JS", "API"],
+      "annee": 2026
+    },
+    {
+      "id": 3,
+      "titre": "App météo",
+      "description": "Application de météo en temps réel.",
+      "tags": ["JS", "API"],
+      "annee": 2026
+    }
+  ]
+}
+
+
+
+
