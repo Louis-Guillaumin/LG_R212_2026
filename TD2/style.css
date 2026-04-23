@@ -1,0 +1,91 @@
+body {
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+  
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+  
+p, ul {
+    max-width: 60ch;
+}
+  
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #f4f4f4;
+    flex-wrap: wrap; 
+}
+  
+nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+  
+nav a {
+    text-decoration: none;
+    color: #111;
+    font-weight: bold;
+}
+  
+#pourquoi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+  
+#pourquoi > h2, #pourquoi > p {
+    width: 100%;
+    margin-bottom: 0;
+}
+  
+#pourquoi article {
+    flex: 1 1 250px;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+  
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #eef2f5;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+}
+  
+.hero p {
+    margin: 0 auto 1.5rem auto;
+}
+  
+blockquote {
+    margin: 0 0 1rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid #555;
+    font-style: italic;
+    color: #555;
+}
+  
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #222;
+    color: #fff;
+    margin-top: 4rem;
+}
+  
+footer a {
+    color: #fff;
+}

@@ -1,0 +1,8 @@
+J'ai choisi de construire un layout fluide en utilisant exclusivement Flexbox. 
+Afin de respecter scrupuleusement le HTML fourni, je n'ai ajouté aucune classe supplémentaire, 
+j'ai préféré cibler directement les balises sémantiques et les ID existants. 
+Pour garantir la robustesse et la maintenabilité du code, je n'ai défini aucune hauteur fixe, la taille des boîtes est ajusté en fonction du contenu,
+évitant ainsi que le texte ne déborde s'il est modifié. 
+Le responsive est géré de manière naturelle grâce à "flex-wrap: wrap" et à la règle "flex: 1 1 250px" sur les cartes, ce qui permet aux éléments de 
+s'empiler sur mobile.
+J'ai mis une limite de "max-width: 60ch" comme demandés sur les textes longs pour faciliter la lecture.
